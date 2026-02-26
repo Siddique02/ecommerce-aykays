@@ -1,61 +1,78 @@
+"use client";
+
+import Link from "next/link";
+
+const footerLinks = {
+  categories: ["Crockery", "Furniture", "Homeware", "Plant pots", "Chairs"],
+  menu: [
+    "New arrivals",
+    "Best sellers",
+    "Recently viewed",
+    "Popular this week",
+    "All products",
+  ],
+};
+
 export default function Footer() {
   return (
-    <div className="grid bg-[#2A254B] pt-[40px] px-[24px] text-[14px] font-extralight text-white">
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
-
-        <div className="leading-7">
-          <h5 className="text-[16px]">Categories</h5>
-          <h4>Crockery</h4>
-          <h4>Furniture</h4>
-          <h4>Homeware</h4>
-          <h4>Plant pots</h4>
-          <h4>Chairs</h4>
-          <h4>Crockery</h4>
+    <footer className="bg-[#2A254B] text-white text-sm font-extralight">
+      <div className="max-w-7xl mx-auto px-6 py-12 grid gap-10 md:grid-cols-3 lg:grid-cols-5">
+        {/* Categories */}
+        <div className="space-y-2">
+          <h5 className="text-lg font-medium">Categories</h5>
+          {footerLinks.categories.map((item) => (
+            <Link key={item} href="/products" className="block hover:underline">
+              {item}
+            </Link>
+          ))}
         </div>
 
-        <div className="leading-7">
-          <h5 className="text-[16px]">Menu</h5>
-          <h4>New arrivals</h4>
-          <h4>Best sellers</h4>
-          <h4>Recently viewed</h4>
-          <h4>Popular this week</h4>
-          <h4>All products</h4>
+        {/* Menu */}
+        <div className="space-y-2">
+          <h5 className="text-lg font-medium">Menu</h5>
+          {footerLinks.menu.map((item) => (
+            <Link key={item} href="/products" className="block hover:underline">
+              {item}
+            </Link>
+          ))}
         </div>
 
-        <div className="leading-7 col-span-2 sm:col-span-1">
-          <h5 className="text-[16px]">Categories</h5>
-          <h4>Crockery</h4>
-          <h4>Furniture</h4>
-          <h4>Homeware</h4>
-          <h4>Plant pots</h4>
-          <h4>Chairs</h4>
-          <h4>Crockery</h4>
+        {/* Repeated Categories (can replace with dynamic section if needed) */}
+        <div className="space-y-2 hidden sm:block">
+          <h5 className="text-lg font-medium">Explore</h5>
+          {footerLinks.categories.map((item) => (
+            <Link key={item} href="/products" className="block hover:underline">
+              {item}
+            </Link>
+          ))}
         </div>
 
-        <div className="max-w-[630px] col-span-2 sm:col-span-1 lg:col-span-2">
-          <h3 className="mb-[15px]">Join our mailing list</h3>
-          <div className="w-[100%] mb-[16px] flex h-[55px]">
+        {/* Newsletter Signup */}
+        <div className="sm:col-span-2 lg:col-span-2">
+          <h5 className="text-lg font-medium mb-4">Join our mailing list</h5>
+          <form className="flex flex-col sm:flex-row gap-2">
             <input
-              className="lg:w-[80%] w-full lg:flex-shrink py-[16px] pl-[20px] pr-[40px] bg-[#4b4666]"
               type="email"
               placeholder="your@email.com"
+              className="w-full sm:flex-1 px-4 py-3 rounded bg-[#4B4666] placeholder-white text-white focus:outline-none"
             />
-            <button className="bg-white whitespace-nowrap px-[32px] py-[16px] text-black">
+            <button
+              type="submit"
+              className="px-6 py-3 bg-white text-black rounded font-medium hover:bg-gray-200"
+            >
               Sign up
             </button>
-          </div>
-        </div>
-
-      </div>
-
-      <div className="mt-[50px]">
-        <div className="h-[3px] bg-[#6961a35b]"></div>
-        <div className="text-center font-extralight opacity-80 py-[25px] text-sm">
-          Copyright 2022 Avion LTD
+          </form>
         </div>
       </div>
 
-    </div>
+      {/* Divider */}
+      <div className="border-t border-white/30 mt-8" />
+
+      {/* Copyright */}
+      <div className="text-center py-6 opacity-80 text-xs">
+        © 2022 Avion LTD. All rights reserved.
+      </div>
+    </footer>
   );
 }

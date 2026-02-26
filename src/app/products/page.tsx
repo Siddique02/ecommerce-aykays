@@ -14,7 +14,6 @@ import Link from "next/link";
 import Accounts from "@/components/svgs/Accounts";
 import Cart from "@/components/svgs/Cart";
 import Delivery from "@/components/svgs/Delivery";
-// import { products } from "@/data/page";
 import { useEffect, useState } from "react";
 import { GetProductData } from "@/sanity/sanity.query";
 import Product from "@/types/page";
@@ -29,7 +28,6 @@ export default function Products() {
     fetchData()
   }, [])
   const [products, setProducts] = useState<Product[]>([])
-  console.log(products);
 
   const [isOpen, setIsOpen] = useState(true)
   const closeDialog = () => {
@@ -46,13 +44,13 @@ export default function Products() {
               Free delivery on all orders over £50 with code easter checkout
             </h4>
           </div>
-          <button onClick={closeDialog}>X</button>
+          <button onClick={closeDialog}>✕</button>
         </div>
       }
 
       <div className="flex justify-between h-[69px] bg-white px-6">
         <div className="flex items-center text-xl">
-          <h1>Avion</h1>
+          <Link href="/"><h1 className="text-2xl font-bold">Avion</h1></Link>
         </div>
         <div className="flex justify-center items-center gap-[23px]">
           <Search />
@@ -85,12 +83,12 @@ export default function Products() {
         </div>
       </div>
 
-      <div className="second-sec px-[24px] pt-[45px] pb-[38px] lg:px-[80px]">
+      <div className="second-sec px-[24px] pt-[45px] pb-[80px] lg:px-[80px]">
         <h2 className="mb-[25px] text-[20px] block ">All products</h2>
-        <div className="flex flex-wrap justify-center sm:justify-between gap-4">
+        <div className="flex flex-wrap justify-center sm:justify-between gap-8">
           {products.map((product) => {
             return (
-              <div key={product.id}>
+              <div key={product.id} className="bg-slate-300 p-4 rounded-lg hover:scale-105 transition-all duration-300 ease-in-out">
                 <Link href={`/products/${product.id}`}>
                   <div>
                     <Image

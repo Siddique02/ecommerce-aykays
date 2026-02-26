@@ -1,51 +1,91 @@
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu";
-import DropDown from "./svgs/DropDown"
-import Search from "./svgs/Search";
-import Link from "next/link";
-import Accounts from "./svgs/Accounts";
-import Cart from "./svgs/Cart";
-  
+"use client";
 
+import Link from "next/link";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import DropDownIcon from "./svgs/DropDown";
+import SearchIcon from "./svgs/Search";
+import CartIcon from "./svgs/Cart";
+import Delivery from "./svgs/Delivery";
+import { useState } from "react";
+
+const categories = [
+  "Plant pots",
+  "Ceramics",
+  "Tables",
+  "Chairs",
+  "Crockery",
+  "Tableware",
+  "Cutlery",
+];
 
 export default function Navbar() {
-    return(
-        <div className="flex justify-between h-[69px] bg-white px-6">
-            <div className="flex items-center text-xl lg:w-[100vw] lg:flex lg:justify-center"><h1>Avion</h1></div>
-            <div className="flex justify-center items-center gap-[23px]">
-                <Link href="/shoppingBasket"><Cart/></Link>
-                <Link href="/"><Accounts/></Link>
-                <Search/>
-                <DropdownMenu>
-                    <DropdownMenuTrigger><DropDown/></DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                    <DropdownMenuLabel>
-                        <div className="flex gap-3">
-                            <Cart/>
-                            <Accounts/>
-                        </div>
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <Link href="/about"><DropdownMenuItem>About Us</DropdownMenuItem></Link>
-                    <DropdownMenuItem>Contact</DropdownMenuItem>
-                    <DropdownMenuItem>Blog</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>Plant pots</DropdownMenuItem>
-                    <DropdownMenuItem>Ceramics</DropdownMenuItem>
-                    <DropdownMenuItem>Tables</DropdownMenuItem>
-                    <DropdownMenuItem>Chairs</DropdownMenuItem>
-                    <DropdownMenuItem>Crockery</DropdownMenuItem>
-                    <DropdownMenuItem>Tableware</DropdownMenuItem>
-                    <DropdownMenuItem>Cutlery</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </div>
+  const [isOpen, setIsOpen] = useState(true);
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <header className="w-full bg-white shadow-sm">
+      {/* Top Promo Bar */}
+      {isOpen && (
+        <div className="topOne bg-[#2A254B] min-h-[54px] text-white text-xs py-2 px-[16px] flex items-center justify-between gap-4">
+          <div className="flex justify-between gap-4">
+            <Delivery />
+            <h4>
+              Free delivery on all orders over £50 with code easter checkout
+            </h4>
+          </div>
+          <button onClick={closeDialog}>✕</button>
         </div>
-    )
+      )}
+
+      {/* Main Navbar */}
+      <nav className="flex justify-between items-center h-[70px] px-6 lg:px-12">
+        {/* Logo */}
+        <Link href="/" className="text-2xl font-bold tracking-wide">
+          Avion
+        </Link>
+
+        {/* Navigation & Actions */}
+        <div className="flex items-center gap-4">
+          {/* Desktop Categories Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button
+                className="text-gray-700 hover:text-black"
+                aria-label="Categories"
+              >
+                <DropDownIcon />
+              </button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Shop Categories</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {categories.map((cat) => (
+                <Link key={cat} href="/products">
+                  <DropdownMenuItem>{cat}</DropdownMenuItem>
+                </Link>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          {/* Icons */}
+          <Link href="/shoppingBasket" aria-label="Cart">
+            <CartIcon />
+          </Link>
+          <button aria-label="Search">
+            <SearchIcon />
+          </button>
+        </div>
+      </nav>
+    </header>
+  );
 }
